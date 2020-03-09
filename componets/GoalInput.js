@@ -16,7 +16,7 @@ const GoalInput = props => {
         style={styles.input}
       />
       <Button title="Add" onPress={()=>props.add(enteredGoal)} />
-   {/*     <Button title="Add" onPress={props.add.bind(this.enteredGoal)} />*/}
+   {/*<Button title="Add" onPress={props.add.bind(this.enteredGoal)} />*/}
     </View>
   );
 };
