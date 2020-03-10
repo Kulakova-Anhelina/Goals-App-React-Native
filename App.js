@@ -1,18 +1,22 @@
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Button } from "react-native";
 
 import GoalInput from "./componets/GoalInput";
 import GoalItem from "./componets/Goaltem";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false)
 
   const addGoalHandller = goalTitle => {
     setCourseGoals(currentGoals => [
       ...currentGoals,
       { id: Math.random().toString(), value: goalTitle }
     ]);
+    setIsAddMode(false);
+
+    
   };
 
   const removeGoalHandler = goalId => {
@@ -20,9 +24,18 @@ export default function App() {
       return currentGoals.filter(goal => goal.id !== goalId);
     });
   };
+
+  const cancelGoalAddtion = () =>{
+    setIsAddMode(false)
+  }
   return (
     <View style={styles.screen}>
-      <GoalInput add={addGoalHandller} />
+      <Button title="add new goal" onPress={() =>setIsAddMode(true)}></Button>
+      <GoalInput 
+      visible ={isAddMode}
+      add={addGoalHandller} 
+      onCancel = {cancelGoalAddtion}
+      />
 
       <FlatList
         keyExtractor={(item, index) => item.id}
@@ -33,7 +46,6 @@ export default function App() {
             onDelete={removeGoalHandler}
             title={itemData.item.value}
             title={itemData.item.value}
-            
           />
         )}
       />
